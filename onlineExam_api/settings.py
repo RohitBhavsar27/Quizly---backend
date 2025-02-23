@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
-    "https://online-exam-client.vercel.app/",
+    "https://online-exam-client.vercel.app",
 ]
 
 MIDDLEWARE = [
