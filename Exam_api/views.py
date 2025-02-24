@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from Exam_api.serializers import QuestionSerializers, UsersSerilizers, ResultsSerilizers
@@ -5,6 +6,7 @@ from .models import Questions, Results, Users, Admin
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.db import connection
 
 
 # Create your views here.
@@ -62,24 +64,30 @@ def getAllQuestions(request, subject):
 def getAllSubjects(request):
     allquestions = Questions.objects.all()
     subjects = list(set(question.subject for question in allquestions))
-    return Response({"subjects": subjects})
+    return JsonResponse(subjects, safe=False)
 
 
 @api_view(["POST"])
 def addQuestions(request):
     question_data = request.data
+    print(question_data)  # Print the request data for debugging
     if Questions.objects.filter(
         qno=question_data["qno"], subject=question_data["subject"]
     ).exists():
         return Response(
             {"error": "Question already exists"}, status=status.HTTP_400_BAD_REQUEST
         )
-
-    serializer = QuestionSerializers(data=question_data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"success": True}, status=status.HTTP_201_CREATED)
-    return Response({"error": "Invalid input"}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        print(connection.queries)
+        serializer = QuestionSerializers(data=question_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": True}, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)  # Print serializer errors for debugging
+            return Response(
+                {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 @api_view(["PUT"])
@@ -141,6 +149,8 @@ def saveResults(request):
     if serializer.is_valid():
         serializer.save()
         return Response(True)
+
+    print("Validation Errors:", serializer.errors)  # Debugging
     return Response(serializer.errors, status=400)
 
 

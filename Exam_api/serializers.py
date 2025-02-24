@@ -28,3 +28,7 @@ class ResultsSerilizers(serializers.ModelSerializer):
     class Meta:
         model = Results
         fields = "__all__"
+
+    def validate(self, data):
+        print("Received Data:", data)  # ✅ Debugging
+        return data

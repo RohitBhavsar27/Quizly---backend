@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 class Users(models.Model):
-    fname = models.CharField(max_length=40, default='')
-    lname = models.CharField(max_length=40, default='')
+    fname = models.CharField(max_length=40, default="")
+    lname = models.CharField(max_length=40, default="")
     emailId = models.CharField(max_length=100)
     username = models.CharField(max_length=40, primary_key=True)
     password = models.CharField(max_length=40)
@@ -17,7 +17,8 @@ class Users(models.Model):
 
 
 class Questions(models.Model):
-    qno = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
+    qno = models.IntegerField()
     qtext = models.CharField(max_length=150)
     answer = models.CharField(max_length=150)
     op1 = models.CharField(max_length=150)
@@ -31,7 +32,7 @@ class Questions(models.Model):
 
     class Meta:
         db_table = "questions"
-        unique_together = (('qno', 'subject'))
+        unique_together = (("qno", "subject"),)
 
 
 class Admin(models.Model):
@@ -43,12 +44,13 @@ class Admin(models.Model):
 
     class Meta:
         db_table = "admin"
-        
+
+
 class Results(models.Model):
-    username = models.CharField(max_length=40, default= "null", primary_key= True)
-    subject = models.CharField(max_length=40, default = "null")
+    username = models.CharField(max_length=40, primary_key=True)
+    subject = models.CharField(max_length=40)
     score = models.IntegerField()
-    
+
     def __str__(self):
         return f"{self.username},{self.subject},{self.score}"
 

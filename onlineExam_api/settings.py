@@ -33,7 +33,7 @@ DEBUG = True
 #     "https://online-exam-client.vercel.app"
 # ]
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
