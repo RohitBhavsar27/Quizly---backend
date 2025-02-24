@@ -13,8 +13,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import pymysql
+from dotenv import load_dotenv
+
 
 pymysql.install_as_MySQLdb()
+
+# Load environment variables from .env file
+env_path = Path(".") / ".env"
+load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -94,10 +100,10 @@ WSGI_APPLICATION = "onlineExam_api.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "exam_db",
-        "USER": "admin",
-        "PASSWORD": "aws_mysql_2771",
-        "HOST": "database-1.cnqyeccwyrg5.eu-north-1.rds.amazonaws.com",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
         "PORT": "3306",
         "OPTIONS": {
             "charset": "utf8mb4",
