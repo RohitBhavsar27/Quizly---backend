@@ -95,9 +95,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "exam_db",
-        "USER": "root",
-        "PASSWORD": "Localuser@2771",
-        "HOST": "localhost",
+        "USER": "admin",
+        "PASSWORD": "aws_mysql_2771",
+        "HOST": "database-1.cnqyeccwyrg5.eu-north-1.rds.amazonaws.com",
         "PORT": "3306",
         "OPTIONS": {
             "charset": "utf8mb4",
