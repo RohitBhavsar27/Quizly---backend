@@ -39,7 +39,10 @@ DEBUG = True
 #     "https://online-exam-client.vercel.app"
 # ]
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "*", 
+    "https://quizly-backend-two.vercel.app/"
+    ]
 
 
 # Application definition
