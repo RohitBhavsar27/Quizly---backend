@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 import pymysql
 from dotenv import load_dotenv
+import psycopg2
+
+conn = psycopg2.connect(os.getenv("DATABASE_URL"))
 
 
 pymysql.install_as_MySQLdb()
@@ -100,20 +103,20 @@ WSGI_APPLICATION = "onlineExam_api.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django_cockroachdb",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-        "OPTIONS": {
-            "sslmode": os.getenv("SSLMODE"),
-            "sslrootcert": os.getenv("SSLROOTCERT"),
-        },
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django_cockroachdb",
+#         "NAME": os.getenv("DB_NAME"),
+#         "USER": os.getenv("DB_USER"),
+#         "PASSWORD": os.getenv("DB_PASSWORD"),
+#         "HOST": os.getenv("DB_HOST"),
+#         "PORT": os.getenv("DB_PORT"),
+#         "OPTIONS": {
+#             "sslmode": os.getenv("SSLMODE"),
+#             "sslrootcert": os.getenv("SSLROOTCERT"),
+#         },
+#     }
+# }
 
 
 # Password validation
