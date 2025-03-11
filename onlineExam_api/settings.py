@@ -100,12 +100,14 @@ WSGI_APPLICATION = "onlineExam_api.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django_cockroachdb",
-        "NAME": "exam_db",
-        "USER": "rohitbhavsar27",
-        "PASSWORD": "NasvShK-O--UwVDZ_RL5gg",
-        "HOST": "select-ape-5113.jxf.gcp-asia-southeast1.cockroachlabs.cloud",
-        "PORT": "26257",
-        "OPTIONS": {"sslmode": "verify-full"},
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
+        "OPTIONS": {
+            "sslmode": os.getenv("SSLMODE")
+        },
     }
 }
 
